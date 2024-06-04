@@ -21,7 +21,7 @@ export async function getCompanyById(req, res) {
     const { id } = req.params;
 
     try {
-        const company = await Company.findById(id);
+        const company = await Company.findById(id).populate("profileId");
         res.json(company)
     } catch (error) {
         res.status(500).json({ error: error.message})
@@ -32,7 +32,7 @@ export async function getCompanyById(req, res) {
 // POST /companies: Add a new company.
 
 export async function createCompany(req, res) {
-    const { name, industry, location, profileId } = req.body;
+    const { name, industry, location } = req.body;
 
     if (!name || !industry || !location) { // || !profileId
         res.status(400).json({ message: "All fields are required" });
@@ -42,8 +42,7 @@ export async function createCompany(req, res) {
     const newCompany = new Company({
         name,
         industry,
-        location,
-        profileId
+        location
     })
     
     try {

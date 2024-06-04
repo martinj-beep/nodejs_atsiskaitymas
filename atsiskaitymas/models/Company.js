@@ -13,10 +13,10 @@ const companySchema = new mongoose.Schema({
         type: String,
         require: true
       },
-    profileId : [{
+    profileId : {
         type: mongoose.Schema.Types.ObjectId,
         ref: "CompanyProfile"
-   }]
+   }
 })
 
 export default mongoose.model("Company", companySchema)

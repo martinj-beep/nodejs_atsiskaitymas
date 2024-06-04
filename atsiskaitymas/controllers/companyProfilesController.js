@@ -37,9 +37,10 @@ export async function createCompanyProfile(req, res) {
 
     const company = await Company.findById(companyId)
 
-    company.profileId.push(newCompanyProfile);
+    company.profileId = newCompanyProfile._id;
     
     try {
+        await company.save();
         await newCompanyProfile.save();
         res.json({newCompanyProfile})
         // res.json(company)
